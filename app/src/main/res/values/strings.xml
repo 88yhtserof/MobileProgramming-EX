@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">MobileProgrammingEx</string>
+    <string name="save">저장</string>
+    <string name="input_phone">전화번호를 입력하세요</string>
+    <string name="input_address">주소를 입력하세요</string>
+    <string name="action_spinners">Spinners</string>
+    <!--
+    문자열 배열 리소스:문자열 목록을 배열 하나에 모아놓은 것
+    문자열 배열 리소스 id
+    XML 파일에서   @array/phoneTypes
+    Java 파일에서  R.array.phoneTypes
+    -->
+    <string-array name="phoneTypes">
+        <item>집전화</item>
+        <item>사무실전화</item>
+        <item>휴대폰</item>
+        <item>기타</item>
+    </string-array>
 </resources>
