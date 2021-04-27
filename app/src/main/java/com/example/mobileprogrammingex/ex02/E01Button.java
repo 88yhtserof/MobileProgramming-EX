@@ -3,6 +3,7 @@ package com.example.mobileprogrammingex.ex02;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +13,8 @@ import com.example.mobileprogrammingex.R;
 
 //모든 클래스의 부모 클래스는 Activity 클래스이다
 public class E01Button extends AppCompatActivity {// 이 클래스의 부모클래스는 AppCompatActivity 클래스
+
+    static final String TAG="logcat";
 
     //on~ :~할 때 자동으로 생성되는 메서드
     @Override
@@ -27,6 +30,7 @@ public class E01Button extends AppCompatActivity {// 이 클래스의 부모클�
         //이 Button 객체는 setContentView 호출로 자동 생성됨
         //findViewById:setContentView 메소드에 의해서 자동 생성된 객체들의 참조를 반환하는 메소드
 
+        Log.d(TAG,"클릭 리스너 시작");
         View.OnClickListener listenerObj= new View.OnClickListener(){//객체 생성(리스너 객체)
             /*
             * 리스너 객체에 대한 참조(주소)를 지역변수 listenerObj 에 저장하여
@@ -48,6 +52,8 @@ public class E01Button extends AppCompatActivity {// 이 클래스의 부모클�
                 textView.setText(sequence);
             }
         };
+
+        Log.d(TAG, "button 에 리스너 객체 등록");
         button.setOnClickListener(listenerObj);//리스너 객체 listenerObj 를 버튼 button 에 등록
         //button 이 클릭되면 listenerObj 의 onClick 이벤트 핸들러 메소드가 자동 호출
     }
