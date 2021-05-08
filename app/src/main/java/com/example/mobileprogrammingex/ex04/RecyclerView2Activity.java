@@ -1,11 +1,14 @@
 package com.example.mobileprogrammingex.ex04;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +17,7 @@ import com.example.mobileprogrammingex.R;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 public class RecyclerView2Activity extends AppCompatActivity {
     RecyclerView2Adapter recyclerView2Adapter;
@@ -47,4 +51,31 @@ public class RecyclerView2Activity extends AppCompatActivity {
             }
         });
    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_recycler_view2,menu);
+        return true;
+    }
+
+    //Java 언어의 Iterator 인터페이스의 탐색 기능과 삭제 기능 이용하여 구현
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id=item.getItemId();
+        if(id==R.id.action_remove){
+            Iterator<Memo2> iterator=arrayList.iterator();
+            //arrayList 목록을 탐색할 수 있는 Iterator 객체가 반환된다.
+            /*Iterator
+            Iterator <Memo2>객체는 ArrayList<Memo2>를 탐색하기 위한 메소드가 있는 탐색 객체이다.
+             */
+
+            while (iterator.hasNext())
+                if(iterator.next().isChecked())
+                    iterator.remove();//next()가 반환한 그 객체를 삭제
+                recyclerView2Adapter.notifyDataSetChanged();
+                //항목 삭제 후 Adapter 객체의 notifyDataSetChanged()메소드를 호출해야 화면이 다시 그려짐
+                return  true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

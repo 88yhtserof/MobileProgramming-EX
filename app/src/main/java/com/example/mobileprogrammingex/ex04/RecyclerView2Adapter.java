@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +20,7 @@ public class RecyclerView2Adapter extends
         RecyclerView.Adapter<RecyclerView2Adapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener{
+            implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
         /*
         지금까지 anonymous inner 클래스(익명 클래스) 문법을 사용하여 Listener 클래스 구현했는데,
         클래스에 Listener 인터페이스를 구현해도 된다.
@@ -29,19 +31,26 @@ public class RecyclerView2Adapter extends
         뷰홀더 객체가 뷰홀더 역할도 하고 리스너 객체 역할도 수행
         */
         TextView textView1,textView2;
+        CheckBox checkBox;
 
         public ViewHolder(@NonNull View itemView) {
+            //뷰홀더 객체에 리스너를 구현하는 것이 바람직하다.
             super(itemView);
             textView1=itemView.findViewById(R.id.textView1);
             textView2=itemView.findViewById(R.id.textView2);
-            itemView.setOnClickListener(this);
+            textView1.setOnClickListener(this);
+            //itemView.setOnClickListener(this);를 하면 뷰 객체 어디를 눌러도 무조건 클릭 리스너 호출
             //뷰 객체에 리스너 객체 설정->뷰 객체에 리스너를 설정하지 않으면 재정의를 했다고 해서
             // onClick 메소드가 호출되지 않는다.
+            checkBox=itemView.findViewById(R.id.checkBox);
+            checkBox.setOnCheckedChangeListener(this);
         }
         public void setData(int position){
+            //데이터 객체에 각 뷰 객체에 대한 값이 저장되어 있기 때문에 스크롤을 해도 값이 달라지지 않는다.
             Memo2 memo2=arrayList.get(position);
             textView1.setText(memo2.getTitle());
             textView2.setText(memo2.getDateFormatted());
+            checkBox.setChecked(memo2.isChecked());//초기 체크 여부 설정
         }
 
         @Override
@@ -50,6 +59,14 @@ public class RecyclerView2Adapter extends
             Memo2 memo=arrayList.get(position);
             String str=String.format("index:%d, title: %s", position,memo.getTitle());
             Toast.makeText(view.getContext(),str,Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            int position=super.getAdapterPosition();
+            Memo2 memo2=arrayList.get(position);
+            memo2.setChecked(isChecked);//변경된 체크 여부 설정
+            //체크 여부가 데이터 객체에 설정되어 있기 때문에 스크롤 했다고 해서 체크 여부가 달라지지 않는다.
         }
     }
 
