@@ -5,6 +5,17 @@
     <string name="input_phone">전화번호를 입력하세요</string>
     <string name="input_address">주소를 입력하세요</string>
     <string name="action_spinners">Spinners</string>
+    <string name="action_signUp">회원가입</string>
+    <string name="action_memo">메모장</string>
+    <string name="loginId">로그인 아이디</string>
+    <string name="input_loginId">로그인 아이디를 입력하세요.</string>
+    <string name="password">비밀번호</string>
+    <string name="input_password">비밀번호를 입력하세요.</string>
+    <string name="password2">비밀번호 확인</string>
+    <string name="input_password2">비밀번호를 한 번 더 입력하세요.</string>
+    <string name="email">이메일</string>
+    <string name="input_email">이메일 주소를 입력하세요.</string>
+    <string name="signUp">회원가입</string>
     <!--
     문자열 배열 리소스:문자열 목록을 배열 하나에 모아놓은 것
     문자열 배열 리소스 id
