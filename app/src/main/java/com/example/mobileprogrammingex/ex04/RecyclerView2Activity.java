@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -63,19 +65,41 @@ public class RecyclerView2Activity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id=item.getItemId();
         if(id==R.id.action_remove){
-            Iterator<Memo2> iterator=arrayList.iterator();
-            //arrayList 목록을 탐색할 수 있는 Iterator 객체가 반환된다.
+             removeMemo();
+                return  true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void removeMemo() {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle(R.string.confirm);
+        builder.setMessage(R.string.doYouWantToDelete);
+
+        //클릭이벤트 리스너가 해당 builder가 PositiveButton에 설정되었을 뿐 호출된 건 아니다.
+        //클릭이 되어야 onClick이 호출된다.
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Iterator<Memo2> iterator=arrayList.iterator();
+                //arrayList 목록을 탐색할 수 있는 Iterator 객체가 반환된다.
             /*Iterator
             Iterator <Memo2>객체는 ArrayList<Memo2>를 탐색하기 위한 메소드가 있는 탐색 객체이다.
              */
 
-            while (iterator.hasNext())
-                if(iterator.next().isChecked())
-                    iterator.remove();//next()가 반환한 그 객체를 삭제
+                while (iterator.hasNext())
+                    if(iterator.next().isChecked())
+                        iterator.remove();//next()가 반환한 그 객체를 삭제
                 recyclerView2Adapter.notifyDataSetChanged();
                 //항목 삭제 후 Adapter 객체의 notifyDataSetChanged()메소드를 호출해야 화면이 다시 그려짐
-                return  true;
-        }
-        return super.onOptionsItemSelected(item);
+            }
+        });
+
+        builder.setNegativeButton(R.string.no,null);
+        AlertDialog dialog=builder.create();
+        dialog.show();
+        //대화상자가 보인 후는 removeMemo()메소드가 리턴된 후이다.
+        //즉 대화상자를 출력하자마자 이 메소드는 리턴한다. 그리고 앱은 대기(idle)상태가 된다.
+        //중요!! 화면에 무언가 출력되었다는 건, 구현한 메소드가 리턴했다는 것이다.
     }
 }
