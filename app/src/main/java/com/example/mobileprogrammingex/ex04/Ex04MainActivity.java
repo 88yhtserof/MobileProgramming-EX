@@ -37,6 +37,10 @@ public class Ex04MainActivity extends AppCompatActivity {
         //그로인해 호출된 액티비티는 자식 액티비티(Memo3Activity)
     }
 
+    public void btnRecyclerView3_clicked(View view){
+        Intent intent=new Intent(this,RecyclerView3Activity.class);
+        startActivity(intent);
+    }
 
     //결과 데이터(result) 받기
     //결과 데이터를 리턴받으려면 부모 액티비티는 OnActivityResult 메소드를 구현해야한다.
