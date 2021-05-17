@@ -2,6 +2,7 @@ package com.example.mobileprogrammingex.ex04;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,9 +57,16 @@ public class RecyclerView3Adapter
         @Override
         public void onClick(View view) {
             int position=super.getAdapterPosition();//ViewHolder 객체에 채워진 데이터 항목의 index 반환
+            //뷰 객체는 자신이 속한 액티비티를 알고 있다.따라서 어댑터에서 activity 기능을 사용하고 싶을 때는.
+            //뷰객체를 통해 액티비티 context를 구하자
+            RecyclerView3Activity activity=(RecyclerView3Activity) textView1.getContext();
+            activity.memoIndex=position;
+            //클릭된 메모 항복의 index 값을 기억해서 수정된 결과물을 원래 자리에 저장하자.
+
             Memo3 memo=arrayList.get(position);
-            String str=String.format("index:%d, title: %s", position,memo.getTitle());
-            Toast.makeText(view.getContext(),str,Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(activity,Memo3Activity.class);
+            intent.putExtra("MEMO",memo);
+            activity.startActivityForResult(intent,RecyclerView3Activity.REQUEST_EDIT);
         }
 
         @Override
@@ -72,6 +80,7 @@ public class RecyclerView3Adapter
                 Activity activity= (Activity) textView1.getContext();
                 //뷰객체는 부모 액티비티를 알고 있다. 따라서 액티비티의 context을 알고 싶으면 뷰 객체 사용
                 activity.invalidateOptionsMenu();
+                //옵션 메뉴가 변화했음을 알려주고 메뉴가 다시 생성되도록 강제한다.
             }
         }
     }

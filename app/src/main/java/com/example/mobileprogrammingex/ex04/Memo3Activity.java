@@ -22,11 +22,19 @@ public class Memo3Activity extends AppCompatActivity {
         setContentView(R.layout.activity_memo3);
 
         Button button=findViewById(R.id.btnSave);
+        EditText editText_title=findViewById(R.id.editText_title);
+        EditText editText_content=findViewById(R.id.editText_content);
+        Memo3 memo3=(Memo3)getIntent().getSerializableExtra("MEMO");
+        //memo3가 null이면 등록, null이 아니면 수정
+        if(memo3!=null){
+            editText_title.setText(memo3.getTitle());
+            editText_content.setText(memo3.getContent());
+        }
+
         //리스너 객체 생성
         View.OnClickListener listener= new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText editText_title=findViewById(R.id.editText_title);
                 String title=editText_title.getText().toString();
 
                 //TextUtils 를 사용하면 해당 TextView 의 null 체크 및 빈값 여부를 체크합니다.
@@ -35,7 +43,6 @@ public class Memo3Activity extends AppCompatActivity {
                     return;
                 }
 
-                EditText editText_content=findViewById(R.id.editText_content);
                 String content=editText_content.getText().toString();
                 if(TextUtils.isEmpty(content)){
                     editText_content.setError("내용을 입력하세요");

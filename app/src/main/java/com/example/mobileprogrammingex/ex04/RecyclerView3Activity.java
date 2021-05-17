@@ -25,6 +25,9 @@ public class RecyclerView3Activity extends AppCompatActivity {
 
     RecyclerView3Adapter recyclerView3Adapter;
     ArrayList<Memo3> arrayList;
+    int memoIndex;
+    public static final int REQUEST_CREATE=0;
+    public static final int REQUEST_EDIT=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +57,7 @@ public class RecyclerView3Activity extends AppCompatActivity {
         int id=item.getItemId();
         if(id==R.id.action_create){
             Intent intent=new Intent(this, Memo3Activity.class);
-            startActivityForResult(intent,0); //결과 값을 기대하며 액티비티 전환
+            startActivityForResult(intent,REQUEST_CREATE); //결과 값을 기대하며 액티비티 전환
         }else if(id==R.id.action_remove){
             removeMemos();
             return true;
@@ -68,7 +71,10 @@ public class RecyclerView3Activity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, intent);
         if(resultCode==RESULT_OK){
             Memo3 memo3=(Memo3) intent.getSerializableExtra("MEMO");//해당 문자열이 키인 값 저장
-            arrayList.add(memo3);
+            if(requestCode==REQUEST_CREATE)//등록
+                arrayList.add(memo3);
+            else if(requestCode==REQUEST_EDIT)//수정 요청이면 원래 위치(memoIndex)에 저장
+                arrayList.set(memoIndex,memo3);
             recyclerView3Adapter.notifyDataSetChanged();//어댑터에 데이터 변경 알려주기
         }
     }
@@ -87,6 +93,8 @@ public class RecyclerView3Activity extends AppCompatActivity {
                     if (iterator.next().isChecked())
                         iterator.remove();//iterator.next()의 항목 삭제
                     recyclerView3Adapter.notifyDataSetChanged();
+                    recyclerView3Adapter.checkCount=0;//초기화
+                    invalidateOptionsMenu();//메뉴가 변경되었음을 알리고 메뉴가 다시 생성되도록 강제
                 }
             }
         });
