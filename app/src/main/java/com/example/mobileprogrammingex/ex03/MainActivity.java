@@ -8,9 +8,11 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.mobileprogrammingex.R;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,11 +46,18 @@ public class MainActivity extends Activity {
             return true;
         }
         //spinner 클리 시
-        if(id==R.id.action_spinners){
+        else if(id==R.id.action_spinners){
             Intent intent=new Intent(this,SpinnersActivity.class);
             startActivity(intent);
             return true;
         }
+        //Alerts 클릭 시
+        else if(id==R.id.action_alerts){
+            Intent intent=new Intent(this,AlertsActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 }

@@ -9,20 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileProgrammingEx">
-        <activity android:name=".ex04.RecyclerView3Activity"></activity>
+        <activity android:name=".ex03.AlertsActivity"
+            android:label="@string/action_alerts"/>
+        <activity android:name=".ex04.RecyclerView3Activity" />
         <activity android:name=".ex04.Memo3Activity" />
         <activity android:name=".ex04.RecyclerView2Activity" />
-        <activity android:name=".ex04.Ex04MainActivity">
+        <activity android:name=".ex04.Ex04MainActivity"/>
+        <activity android:name=".ex04.RecyclerView1Activity" />
+        <activity android:name=".ex03.SignupActivity" />
+        <activity android:name=".ex02.E01Button" />
+        <activity android:name=".ex03.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ex04.RecyclerView1Activity" />
-        <activity android:name=".ex03.SignupActivity" />
-        <activity android:name=".ex02.E01Button" />
-        <activity android:name=".ex03.MainActivity" />
         <activity
             android:name=".ex03.SpinnersActivity"
             android:label="@string/action_spinners" />
